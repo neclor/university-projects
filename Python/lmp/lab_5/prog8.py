@@ -63,6 +63,7 @@ def run() -> None:
 def handle_input() -> None:
 	keys = pygame.key.get_pressed()
 	buttons = pygame.mouse.get_pressed()
+
 	if keys[pygame.K_LEFT]:
 		ship["rotation"] -= ship["rotation_speed"]
 	if keys[pygame.K_RIGHT]:
