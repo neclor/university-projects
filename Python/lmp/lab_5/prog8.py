@@ -11,7 +11,7 @@ YELLOW: Tuple[int, int, int] = (255, 255, 0)
 
 WINDOW_SIZE: Tuple[int, int] = (800, 600)
 
-fps: int = 50
+fps: int = 30
 background_color: Tuple[int, int, int] = NOIR
 
 clock: pygame.time.Clock
@@ -90,10 +90,10 @@ def update_ship() -> None:
 
 		if planet["exist"]:
 			vector_to_planet: list[float] = [planet["position"][0] - ship["position"][0], planet["position"][1] - ship["position"][1]]
-			distance_to_planet: float = math.sqrt(vector_to_planet[0] ** 2 + vector_to_planet[1] ** 2)
+			distance_to_planet_pow_2: float = vector_to_planet[0] ** 2 + vector_to_planet[1] ** 2
 			angle_to_planet: float = math.atan2(vector_to_planet[1], vector_to_planet[0])
 
-			gravity = planet["G"] * planet["weight"] * ship["weight"] / distance_to_planet ** 2
+			gravity = planet["G"] * planet["weight"] * ship["weight"] / distance_to_planet_pow_2
 
 			ship["velocity"][0] += gravity * math.cos(angle_to_planet) * delta
 			ship["velocity"][1] += gravity * math.sin(angle_to_planet) * delta
