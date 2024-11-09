@@ -63,6 +63,7 @@ def run() -> None:
 def handle_input() -> None:
 	keys = pygame.key.get_pressed()
 	buttons = pygame.mouse.get_pressed()
+
 	if keys[pygame.K_LEFT]:
 		ship["rotation"] -= ship["rotation_speed"]
 	if keys[pygame.K_RIGHT]:
@@ -90,12 +91,12 @@ def update_ship() -> None:
 		if planet["exist"]:
 			vector_to_planet: list[float] = [planet["position"][0] - ship["position"][0], planet["position"][1] - ship["position"][1]]
 			distance_to_planet_pow_2: float = vector_to_planet[0] ** 2 + vector_to_planet[1] ** 2
-			angle_to_planet: float = math.atan2(vector_to_planet[1], vector_to_planet[0])
+			distance_to_planet: float = math.sqrt(distance_to_planet_pow_2)
 
 			gravity = planet["G"] * planet["weight"] * ship["weight"] / distance_to_planet_pow_2
 
-			ship["velocity"][0] += gravity * math.cos(angle_to_planet) * delta
-			ship["velocity"][1] += gravity * math.sin(angle_to_planet) * delta
+			ship["velocity"][0] += gravity * vector_to_planet[0] / distance_to_planet * delta
+			ship["velocity"][1] += gravity * vector_to_planet[1] / distance_to_planet * delta
 
 		ship["position"][0] += ship["velocity"][0] * delta
 		ship["position"][1] += ship["velocity"][1] * delta
